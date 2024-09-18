@@ -50,8 +50,11 @@ public class StudentsCRUD : IStudentsCRUD
         Student studentToUpdate = Students.FirstOrDefault(studentInList => studentInList.Email == refStudentEmail);
 
         if(studentToUpdate != null){
+            studentToUpdate.Email += ".alterado"; //alterando direto, testei depois
+            /*
             int indexUpdate = Students.IndexOf(studentToUpdate);
             Students[indexUpdate].Email+=".alterado";
+            */
         }
     }
 }
