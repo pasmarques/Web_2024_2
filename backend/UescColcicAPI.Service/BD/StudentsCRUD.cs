@@ -1,5 +1,8 @@
 ﻿using UescColcicAPI.Services.BD.Interfaces;
 using UescColcicAPI.Core;
+using System.Collections;
+using System.Security.Cryptography.X509Certificates;
+using System.Reflection;
 
 namespace UescColcicAPI.Services.BD;
 
@@ -14,12 +17,21 @@ public class StudentsCRUD : IStudentsCRUD
    };
     public void Create(Student entity)
     {
-        throw new NotImplementedException();
+        Students.Add(entity); //Adiciona o um objeto do tipo Student na lista
     }
-
     public void Delete(Student entity)
     {
-        throw new NotImplementedException();
+        // Captura o email que quer deletar (considerando email como id único)
+        string refStudentEmail = entity.Email;
+
+        // Encontra o estudante na lista com o email especificado
+        Student studentToRemove = Students.FirstOrDefault(studentInList => studentInList.Email == refStudentEmail);
+
+        // Se o estudante foi encontrado, remove da lista
+        if (studentToRemove != null)
+        {
+            Students.Remove(studentToRemove);
+        }
     }
 
     public IEnumerable<Student> ReadAll()
@@ -29,7 +41,17 @@ public class StudentsCRUD : IStudentsCRUD
 
     public void Update(Student entity)
     {
-        throw new NotImplementedException();
-    }
+         /*Captura o email que quer deletar (considerando email como id único)
+        string refStudentEmail = entity.Email;
+        string refStudentName = entity.Name;
+        */
+        string refStudentEmail = entity.Email;
+        //preciso para achar a referencia ao objeto que possui um email igual ao Student entity do parâmetro
+        Student studentToUpdate = Students.FirstOrDefault(studentInList => studentInList.Email == refStudentEmail);
 
+        if(studentToUpdate != null){
+            int indexUpdate = Students.IndexOf(studentToUpdate);
+            Students[indexUpdate].Email+=".alterado";
+        }
+    }
 }

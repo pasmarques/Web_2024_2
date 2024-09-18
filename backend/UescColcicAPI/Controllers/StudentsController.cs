@@ -22,4 +22,19 @@ namespace UescColcicAPI.Controllers;
         {
             return _studentsCRUD.ReadAll();
         }
+
+        [HttpPost(Name = "PostStudensName")]
+        public void Post(Student entity){
+            _studentsCRUD.Create(entity);
+        }
+
+        [HttpDelete(Name = "DeleteStudensName")]
+        public void Delete(Student entity){
+            _studentsCRUD.Delete(entity);
+        }
+        
+        [HttpPut(Name = "UpdateStudensName")]
+        public void Put(Student entity){
+            _studentsCRUD.Update(entity);
+        }
     }
